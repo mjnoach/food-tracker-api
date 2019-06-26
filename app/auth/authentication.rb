@@ -1,4 +1,6 @@
 class Authentication
+  attr_accessor :user
+  
   def initialize(login_params)
     @email = login_params[:email]
     @password = login_params[:password]
