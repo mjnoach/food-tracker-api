@@ -7,7 +7,6 @@ class ApplicationController < ActionController::API
 
   def authorize_request
     token = Authorization.new(request)
-    puts token.current_user
     @current_user = User.find(token.current_user)
   rescue ActiveRecord::RecordNotFound => e
     render json: { errors: e.message }, status: :unauthorized
