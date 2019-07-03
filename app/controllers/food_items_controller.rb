@@ -3,15 +3,12 @@ class FoodItemsController < ApplicationController
 
   # GET /food_items
   def index
-    # @food_items = FoodItem.all
-    # @food_items = current_user.food_items.order
-    @food_items = @current_user.food_items
+    @food_items = @current_user.food_items.order('name ASC')
     render json: @food_items, status: :ok
   end
 
   # POST /food_items
   def create
-    # @food_item = FoodItem.new(food_item_params)
     @food_item = @current_user.food_items.new(food_item_params)
     if @food_item.save
       render json: @food_item, status: :created
@@ -22,14 +19,12 @@ class FoodItemsController < ApplicationController
 
   # DELETE /food_items/:id
   def destroy
-    # @food_item = FoodItem.find(params[:id])
-    @food_item = @current_user.food_items.find(params[:id])
-    @food_item.destroy
-    # if @food_item.destroy
-      # head :no_content, status: :ok
-    # else
-      # render json: @food_items.errors, status: :unprocessable_entity
-    # end
+    @food_items = @current_user.food_items.find(params[:id])
+    if @food_items.destroy
+      head :no_content, status: :ok
+    else
+      render json: @food_items.errors, status: :unprocessable_entity
+    end
   end
 
   private

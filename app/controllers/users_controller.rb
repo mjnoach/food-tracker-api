@@ -1,15 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, except: [:login, :create]
-
-  # POST /login
-  def login
-    auth = Authentication.new(login_params)
-    if auth.authenticate
-      render json: { token: auth.generate_token, uid: auth.user.id }, status: :ok
-    else
-      render json: { error: "unauthorized" }, status: :unauthorized
-    end
-  end
+  before_action :authorize_request, except: [:create]
 
   # GET /users
   def index
@@ -34,14 +24,14 @@ class UsersController < ApplicationController
 
   # DELETE /users/:id
   def destroy
-    @current_user.destroy
+    if @current_user.destroy
+      head :no_content, status: :ok
+    else
+      render json: @current_user.errors, status: :unprocessable_entity
+    end
   end
 
   private
-
-  def login_params
-    params.permit(:email, :password)
-  end
 
   def user_params
     params.permit(:name, :email, :password, :password_confirmation)
