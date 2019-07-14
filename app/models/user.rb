@@ -3,7 +3,13 @@ class User < ApplicationRecord
 
   has_many :food_items
 
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :name,  presence: true,
+                    length: {minimum: 3, maximum: 50}
+
+  validates :email, presence: true, 
+                    uniqueness: true,
+                    format: { with: URI::MailTo::EMAIL_REGEXP }
+                    
+  validates :password,  presence: true,
+                        length: {minimum: 6}
 end
