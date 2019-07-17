@@ -19,11 +19,20 @@ class FoodItemsController < ApplicationController
 
   # DELETE /food_items/:id
   def destroy
-    @food_items = @current_user.food_items.find(params[:id])
-    if @food_items.destroy
+    @food_item = @current_user.food_items.find(params[:id])
+    if @food_item.destroy
       head :no_content, status: :ok
     else
-      render json: @food_items.errors, status: :unprocessable_entity
+      render json: @food_item.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /food_items/:id
+  def update
+    @food_item = @current_user.food_items.find(params[:id])
+    @food_item.quantity = params[:quantity]
+    if @food_item.save
+      render json: {quantity: @food_item.quantity}
     end
   end
 

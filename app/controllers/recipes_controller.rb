@@ -17,13 +17,19 @@ class RecipesController < ApplicationController
     end
   end
 
+  # GET /recipes/:id
+  def show
+    @recipe = @current_user.recipes.find(params[:id])
+    render json: @recipe, status: :ok
+  end
+
   # DELETE /recipes/:id
   def destroy
-    @recipes = @current_user.recipes.find(params[:id])
-    if @recipes.destroy
+    @recipe = @current_user.recipes.find(params[:id])
+    if @recipe.destroy
       head :no_content, status: :ok
     else
-      render json: @recipes.errors, status: :unprocessable_entity
+      render json: @recipe.errors, status: :unprocessable_entity
     end
   end
 
