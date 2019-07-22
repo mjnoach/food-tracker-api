@@ -28,11 +28,18 @@ class FoodItemsController < ApplicationController
   end
 
   # PUT /food_items/:id
+  # def update
+  #   @food_item = @current_user.food_items.find(params[:id])
+  #   @food_item.quantity = params[:quantity]
+  #   if @food_item.save
+  #     render json: {quantity: @food_item.quantity}
+  #   end
+  # end
+
   def update
     @food_item = @current_user.food_items.find(params[:id])
-    @food_item.quantity = params[:quantity]
-    if @food_item.save
-      render json: {quantity: @food_item.quantity}
+    if @food_item.update food_item_params
+      render json: @food_item, status: :ok
     end
   end
 
