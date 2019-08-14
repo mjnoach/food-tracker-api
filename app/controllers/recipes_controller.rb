@@ -33,6 +33,14 @@ class RecipesController < ApplicationController
     end
   end
 
+  # PUT /recipes/:id
+  def update
+    @recipe = @current_user.recipes.find(params[:id])
+    if @recipe.update recipe_params
+      render json: @recipe, status: :ok
+    end
+  end
+
   private
 
   def recipe_params
