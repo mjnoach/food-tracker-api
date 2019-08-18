@@ -10,6 +10,7 @@ class RecipesController < ApplicationController
   # POST /recipes
   def create
     @recipe = @current_user.recipes.new(recipe_params)
+    @recipe.food_items << FoodItem.find(params[:ingredients])
     if @recipe.save
       render json: @recipe, status: :created
     else
@@ -20,7 +21,9 @@ class RecipesController < ApplicationController
   # GET /recipes/:id
   def show
     @recipe = @current_user.recipes.find(params[:id])
-    render json: @recipe, status: :ok
+    @ingredients = @recipe.food_items
+    @recipe_ingr = JsonHelpers.json_nest(@recipe, @ingredients, "ingredients")
+    render json: @recipe_ingr, status: :ok
   end
 
   # DELETE /recipes/:id
