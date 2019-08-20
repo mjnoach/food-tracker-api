@@ -21,7 +21,7 @@ class RecipesController < ApplicationController
   # GET /recipes/:id
   def show
     @recipe = @current_user.recipes.find(params[:id])
-    @ingredients = @recipe.food_items
+    @ingredients = @recipe.food_items.order('name ASC')
     @recipe_ingr = JsonHelpers.json_nest(@recipe, @ingredients, "ingredients")
     render json: @recipe_ingr, status: :ok
   end
@@ -39,7 +39,7 @@ class RecipesController < ApplicationController
   # PUT /recipes/:id
   def update
     @recipe = @current_user.recipes.find(params[:id])
-    if @recipe.update recipe_params
+    if @recipe.update recipe_params and @recipe.food_items.replace(FoodItem.find(params[:ingredients]))
       render json: @recipe, status: :ok
     end
   end
