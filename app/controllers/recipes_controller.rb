@@ -14,7 +14,7 @@ class RecipesController < ApplicationController
     if @recipe.save
       render json: @recipe, status: :created
     else
-      render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
+      render json: @recipe.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -32,7 +32,7 @@ class RecipesController < ApplicationController
     if @recipe.destroy
       head :no_content, status: :ok
     else
-      render json: @recipe.errors, status: :unprocessable_entity
+      render json: @recipe.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -41,6 +41,8 @@ class RecipesController < ApplicationController
     @recipe = @current_user.recipes.find(params[:id])
     if @recipe.update recipe_params and @recipe.food_items.replace(FoodItem.find(params[:ingredients]))
       render json: @recipe, status: :ok
+    else
+      render json: @recipe.errors.full_messages, status: :unprocessable_entity
     end
   end
 

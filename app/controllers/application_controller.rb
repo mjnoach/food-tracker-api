@@ -9,6 +9,6 @@ class ApplicationController < ActionController::API
     token = Authorization.new(request)
     @current_user = User.find(token.current_user)
   rescue ActiveRecord::RecordNotFound, ExceptionHandler::ExpiredSignature, ExceptionHandler::DecodeError => e
-    render json: { errors: e.message }, status: :unauthorized
+    render json: e.message, status: :unauthorized
   end
 end

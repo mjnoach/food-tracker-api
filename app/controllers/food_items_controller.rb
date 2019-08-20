@@ -13,7 +13,7 @@ class FoodItemsController < ApplicationController
     if @food_item.save
       render json: @food_item, status: :created
     else
-      render json: { errors: @food_item.errors.full_messages }, status: :unprocessable_entity
+      render json: @food_item.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class FoodItemsController < ApplicationController
     if @food_item.destroy
       head :no_content, status: :ok
     else
-      render json: @food_item.errors, status: :unprocessable_entity
+      render json: @food_item.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -32,6 +32,9 @@ class FoodItemsController < ApplicationController
     @food_item = @current_user.food_items.find(params[:id])
     if @food_item.update food_item_params
       render json: @food_item, status: :ok
+    else
+      # render json: { errors: @food_item.errors.full_messages }, status: :unprocessable_entity
+      render json: @food_item.errors.full_messages, status: :unprocessable_entity
     end
   end
 
