@@ -6,7 +6,7 @@
 3. Run `rake db:create db:migrate`
 4. Run `rails s`  
 
-Remember to configure server ports according with the Client app.
+Remember to configure server ports according with the Client APP.
 
 ## Client APP:
 https://github.com/mjnoach/food-tracker-client
