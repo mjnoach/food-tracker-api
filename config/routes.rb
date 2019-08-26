@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :users, :food_items, :recipes
+  resources :users, :food_items, :recipes, :meals
 
   # resources :recipes, shallow: true do
   # 	resources :ingredients, only: [:index]
