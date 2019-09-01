@@ -21,9 +21,7 @@ class RecipesController < ApplicationController
   # GET /recipes/:id
   def show
     @recipe = @current_user.recipes.find(params[:id])
-    @ingredients = @recipe.food_items.order('name ASC')
-    @recipe_ingr = JsonHelpers.json_nest(@recipe, @ingredients, "ingredients")
-    render json: @recipe_ingr, status: :ok
+    render json: @recipe, serializer: RecipeCompleteSerializer, status: :ok
   end
 
   # DELETE /recipes/:id
