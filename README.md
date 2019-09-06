@@ -1,24 +1,13 @@
-# README
+## Installation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+1. Run `rails s`. This will generate `tmp/development_secret.txt`  
+2. In root directory create `.env` file based on `.env_example`  
+   Set the `SECRET_KEY_BASE` variable to the string generated in `tmp/development_secret.txt`  
+2. Run `bundle install`  
+3. Run `rake db:create db:migrate`
+4. Run `rails s`  
 
-Things you may want to cover:
+Remember to configure server ports according with the Client APP.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Client APP:
+https://github.com/mjnoach/food-tracker-client
