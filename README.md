@@ -1,10 +1,9 @@
 ## Installation
 
-1. Run `rails s`. This will generate `tmp/development_secret.txt`  
-2. In root directory create `.env` file based on `.env_example`  
+1. Run `bundle install`  
+2. Run `rake db:setup`
+3. In root directory create `.env` file based on `.env_example` (`cp .env-example .env`)  
    Set the `SECRET_KEY_BASE` variable to the string generated in `tmp/development_secret.txt`  
-2. Run `bundle install`  
-3. Run `rake db:setup`
 4. Run `rails s`  
 
 Remember to configure server ports according with the Client APP.
